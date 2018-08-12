@@ -1,0 +1,83 @@
+1、Whitelabel Error Page
+
+	This application has no explicit mapping for /error, so you are seeing this as a fallback.
+	Thu Aug 09 11:16:51 CST 2018
+	There was an unexpected error (type=Not Found, status=404).
+	No message available
+
+ index.html  放在static资源文件夹下
+ 
+ 2、html  ajax请求
+ 
+		var formData = new FormData();
+        formData.append('productName', productName);
+        formData.append('amount',amount );
+        formData.append('num', num);
+        $.ajax({
+            url: 'http://localhost:9001/addBill',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert('保存成功', function(){
+                    });
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
+
+                alert("网络错误");
+            }
+        });
+		
+3、mybatis
+
+Caused by: java.lang.ClassNotFoundException: org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvider
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 29 common frames omitted
+	
+解决：springboot2.0 要升级<druid.version>1.1.9</druid.version>
+   
+   ***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   testIndexController (field private com.example.demo.service.IBillService com.example.demo.controller.TestIndexController.billService)
+      ↓
+   billServiceImpl (field private com.example.demo.dao.BillDao com.example.demo.service.impl.BillServiceImpl.billDao)
+      ↓
+   billDao defined in file [D:\projectTest\demo1\target\classes\com\example\demo\dao\BillDao.class]
+      ↓
+   sqlSessionFactory defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]
+┌─────┐
+|  dataSource defined in class path resource [com/example/demo/conf/dataSource/DynamicDataSourceConfig.class]
+↑     ↓
+|  firstDataSource defined in class path resource [com/example/demo/conf/dataSource/DynamicDataSourceConfig.class]
+↑     ↓
+|  org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker
+└─────┘
+
+解决：@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+
+4、事务控制
+
+5、cache
+
+6、mybatis plus
+
+
+7、redis
+
+8、前端框架
