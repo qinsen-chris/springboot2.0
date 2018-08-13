@@ -1,4 +1,4 @@
-package com.example.demo.config.datasources;
+package com.example.demo.configs.datasources;
 
 /**
  * 增加多数据源，在此配置

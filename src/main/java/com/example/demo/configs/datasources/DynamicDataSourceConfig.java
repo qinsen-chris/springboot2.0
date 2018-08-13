@@ -1,4 +1,4 @@
-package com.example.demo.config.datasources;
+package com.example.demo.configs.datasources;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;

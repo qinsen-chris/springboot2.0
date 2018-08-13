@@ -1,8 +1,8 @@
-package com.example.demo.config.datasources.aspect;
+package com.example.demo.configs.datasources.aspect;
 
-import com.example.demo.config.datasources.DataSourceNames;
-import com.example.demo.config.datasources.DynamicDataSource;
-import com.example.demo.config.datasources.annotation.DataSource;
+import com.example.demo.configs.datasources.DataSourceNames;
+import com.example.demo.configs.datasources.DynamicDataSource;
+import com.example.demo.configs.datasources.annotation.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 @Component
 public class DataSourceAspect implements Ordered {
 
-    @Pointcut("@annotation(com.example.demo.config.datasources.annotation.DataSource)")
+    @Pointcut("@annotation(com.example.demo.configs.datasources.annotation.DataSource)")
     public void dataSourcePointCut() {
 
     }

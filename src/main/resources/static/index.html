@@ -19,7 +19,7 @@
     </div>
 
     <div >
-        <div >名称</div>
+        <div >订单</div>
         <div >
             <input type="text"  placeholder="" id="productName"/>
         </div>
@@ -30,6 +30,20 @@
             <input type="text"  placeholder="" id="num"/>
         </div>
         <button type="button" onclick="addBill()">添加</button>
+    </div>
+
+    <div >
+        <div >用户</div>
+        <div >
+            <input type="text"  placeholder="" id="userName"/>
+        </div>
+        <div >
+            <input type="text"  placeholder="" id="telPhone"/>
+        </div>
+        <div >
+            <input type="text"  placeholder="" id="age"/>
+        </div>
+        <button type="button" onclick="addUser()">添加</button>
     </div>
 </body>
 <script  src="./js/jquery.min.js"></script>
@@ -53,6 +67,43 @@
         formData.append('num', num);
         $.ajax({
             url: 'http://localhost:9001/addBill',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert('保存成功', function(){
+                    });
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
+
+                alert("网络错误");
+            }
+        });
+    }
+
+     function addUser(){
+        var userName = $("#userName").val();
+        var telPhone = $("#telPhone").val();
+        var age = $("#age").val();
+       if(userName ==""){
+            alert("名称不能为空!");
+            return false;
+        }
+         console.log(userName);
+
+        var formData = new FormData();
+        formData.append('userName', userName);
+        formData.append('telPhone',telPhone );
+        formData.append('age', age);
+        $.ajax({
+            url: 'http://localhost:9001/addUser',
             type: 'POST',
             dataType: 'json',
             cache: false,
