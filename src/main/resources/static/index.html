@@ -45,6 +45,13 @@
         </div>
         <button type="button" onclick="addUser()">添加</button>
     </div>
+    <div >
+        <div >
+            <input type="text"  placeholder="" id="userName1"/>
+        </div>
+        <button type="button" onclick="queryUserBillList()">查询列表</button>
+    </div>
+
 </body>
 <script  src="./js/jquery.min.js"></script>
 
@@ -125,6 +132,42 @@
         });
     }
 
+
+
+ function queryUserBillList(){
+        var userName = $("#userName1").val();
+       if(userName ==""){
+            alert("名称不能为空!");
+            return false;
+        }
+         console.log(userName);
+
+        var formData = new FormData();
+        formData.append('userName', userName);
+        formData.append('curr', 1);
+        formData.append('num', 10);
+        $.ajax({
+            url: 'http://localhost:9001/queryUserBillList',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert('查询成功', function(){
+                    });
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
+
+                alert("网络错误");
+            }
+        });
+    }
 
 </script>
 </html>

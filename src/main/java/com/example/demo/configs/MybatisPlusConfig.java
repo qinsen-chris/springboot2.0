@@ -7,6 +7,7 @@ package com.example.demo.configs;
 
 import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * email:qinsen@chinaredsun.com
  */
 @Configuration
+@MapperScan({"com.example.demo.mapper","com.example.demo.dao"})
 public class MybatisPlusConfig {
     /**
      * 分页插件

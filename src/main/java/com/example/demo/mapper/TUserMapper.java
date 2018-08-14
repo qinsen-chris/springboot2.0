@@ -1,8 +1,13 @@
 package com.example.demo.mapper;
 
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.example.demo.domain.UserBill;
 import com.example.demo.entity.TUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +20,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TUserMapper extends BaseMapper<TUser> {
 
+    List<UserBill> queryListUserBill(Pagination page, @Param("user") TUser user );
 }

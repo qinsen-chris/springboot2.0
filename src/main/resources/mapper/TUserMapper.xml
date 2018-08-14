@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TUserMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <select id="queryListUserBill" resultType="com.example.demo.domain.UserBill">
+        SELECT
+            t.productName,t.num,t.amount,u.user_name,u.tel_phone
+        FROM
+        t_user as  u
+        LEFT JOIN t_bill as t ON t.userId = u.id
+        WHERE 1=1
+        <if test="user.userName != null">
+            and u.user_name like concat('%',#{user.userName},'%')
+        </if>
+    </select>
+</mapper>

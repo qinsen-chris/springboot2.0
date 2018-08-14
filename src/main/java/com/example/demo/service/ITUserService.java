@@ -1,7 +1,13 @@
 package com.example.demo.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.example.demo.domain.UserBill;
 import com.example.demo.entity.TUser;
 import com.baomidou.mybatisplus.service.IService;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +19,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ITUserService extends IService<TUser> {
 
+    Page<UserBill> queryListUser(TUser user );
 }

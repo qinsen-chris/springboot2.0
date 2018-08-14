@@ -123,7 +123,19 @@ mybatis-plus:
     #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
     map-underscore-to-camel-case: true
 	
-	
+	sql报错：
+	<if test="user.userName != null">
+		and u.user_name like "%"#{user.userName}"%"  
+	</if>
+	2018-08-14 11:10:41.634 [http-nio-9001-exec-7] ERROR c.a.druid.filter.stat.StatFilter - merge sql error, dbType mysql, druid-1.1.10, sql : SELECT COUNT(1) FROM ( SELECT
+            t.productName,t.num,t.amount,u.user_name,u.tel_phone
+        FROM
+        t_user as  u
+        LEFT JOIN t_bill as t ON t.userId = u.id
+        WHERE 1=1
+         
+            and u.user_name like "%"?"%" ) TOTAL
+com.alibaba.druid.sql.parser.ParserException: syntax error, error in :'name like "%"?"%" ) TOTAL', expect RPAREN, actual QUES pos 243, line 8, column 38, token QUES
 	
 7、redis
 

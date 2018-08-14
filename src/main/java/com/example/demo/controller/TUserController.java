@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.example.demo.domain.UserBill;
 import com.example.demo.entity.Bill;
 import com.example.demo.entity.TUser;
 import com.example.demo.service.IBillService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,6 +74,24 @@ public class TUserController {
         r.put("code", 0);
         r.put("msg", "success");
         return r;
+    }
+
+    /**
+     * 分页查询 自定义sql
+     * @param userName
+     * @param curr
+     * @param num
+     * @return
+     */
+    @RequestMapping("/queryUserBillList")
+    public Page<UserBill> queryUserBillList(String userName,int curr,int num){
+        TUser user = new TUser();
+        user.setUserName("zhangsan");
+        user.setCurr(0);
+        user.setNum(10);
+        Page<UserBill> list = userService.queryListUser(user);
+        System.out.println(list);
+        return  list;
     }
 }
 

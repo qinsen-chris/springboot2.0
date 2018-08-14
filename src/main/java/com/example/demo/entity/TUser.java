@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author qinsen
  * @since 2018-08-13
  */
-public class TUser implements Serializable {
+public class TUser extends BaseEntry implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
