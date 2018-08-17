@@ -31,7 +31,7 @@
         </div>
         <button type="button" onclick="addBill()">添加</button>
     </div>
-
+    <br/>
     <div >
         <div >用户</div>
         <div >
@@ -45,11 +45,23 @@
         </div>
         <button type="button" onclick="addUser()">添加</button>
     </div>
+    <br/>
     <div >
         <div >
             <input type="text"  placeholder="" id="userName1"/>
         </div>
         <button type="button" onclick="queryUserBillList()">查询列表</button>
+    </div>
+    <br/>
+    <div >
+        <button type="button" onclick="testTransactional()">测试事务</button>
+    </div>
+    <br/>
+    <div >
+        <div >
+            <input type="text"  placeholder="" id="userName2"/>
+        </div>
+        <button type="button" onclick="queryUserBillList2()">查找用户</button>
     </div>
 
 </body>
@@ -89,7 +101,6 @@
                 }
             },
             error: function(err) {
-
                 alert("网络错误");
             }
         });
@@ -126,7 +137,6 @@
                 }
             },
             error: function(err) {
-
                 alert("网络错误");
             }
         });
@@ -163,7 +173,63 @@
                 }
             },
             error: function(err) {
+                alert("网络错误");
+            }
+        });
+    }
 
+    function testTransactional(){
+        var formData = new FormData();
+        $.ajax({
+            url: 'http://localhost:9001/testTransactional',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert('查询成功', function(){
+                    });
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
+                alert("网络错误");
+            }
+        });
+    }
+
+     function queryUserBillList2(){
+        var userName = $("#userName2").val();
+       if(userName ==""){
+            alert("名称不能为空!");
+            return false;
+        }
+         console.log(userName);
+
+        var formData = new FormData();
+        formData.append('userName', userName);
+
+        $.ajax({
+            url: 'http://localhost:9001/queryUserByUsername',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert('查询成功', function(){
+                    });
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
                 alert("网络错误");
             }
         });

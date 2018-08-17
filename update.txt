@@ -71,18 +71,15 @@ The dependencies of some of the beans in the application context form a cycle:
 
 解决：@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 
-4、事务控制
+4、mybatis plus
 
-5、cache
-
-6、mybatis plus
-
-<!-- mybatis-plus -->
+		<!-- mybatis-plus -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>${mybatisplus.spring.boot.version}</version>
 		</dependency>
+		
 		<!-- mybatis-plus  代码生成器VelocityTemplateEngine 中依赖 VelocityEngine-->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
@@ -127,16 +124,71 @@ mybatis-plus:
 	<if test="user.userName != null">
 		and u.user_name like "%"#{user.userName}"%"  
 	</if>
+	日志
 	2018-08-14 11:10:41.634 [http-nio-9001-exec-7] ERROR c.a.druid.filter.stat.StatFilter - merge sql error, dbType mysql, druid-1.1.10, sql : SELECT COUNT(1) FROM ( SELECT
             t.productName,t.num,t.amount,u.user_name,u.tel_phone
         FROM
         t_user as  u
         LEFT JOIN t_bill as t ON t.userId = u.id
         WHERE 1=1
-         
             and u.user_name like "%"?"%" ) TOTAL
-com.alibaba.druid.sql.parser.ParserException: syntax error, error in :'name like "%"?"%" ) TOTAL', expect RPAREN, actual QUES pos 243, line 8, column 38, token QUES
+		com.alibaba.druid.sql.parser.ParserException: syntax error, error in :'name like "%"?"%" ) TOTAL', expect RPAREN, actual QUES pos 243, line 8, column 38, token QUES
 	
+	解决：like concat('%',#{user.userName},'%')
+
+
+5、事务控制
+	@Transactional
+	声明式事务底层原理
+	spring事务处理机制
+	事务的传播与监控
+
+6、cache
+一级缓存
+二级缓存
+		1、
+		<!-- 6、ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+		2、
+		ehcache.xml
+		3、
+		CacheConfig
+		
+		
+	1	
+		<cache name="users"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false"
+           timeToIdleSeconds="100"
+           timeToLiveSeconds="1200"
+           diskPersistent="false"
+           memoryStoreEvictionPolicy="LRU"
+           diskExpiryThreadIntervalSeconds="120"/>
+	
+	eternal="true" 才起作用？
+	
+	解决：@Cacheable(cacheNames = "users",key="'user_'+#username", unless = "#result == null")
+	
+	<!--		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		-->   
+		换成：
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.4.RELEASE</version>
+		</dependency>
+		
+		核心逻辑在CacheInterceptor这个类（及其父类CacheAspectSupport）
 7、redis
 
-8、前端框架
+8、Swagger
+
+9、前端框架

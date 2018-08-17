@@ -93,5 +93,22 @@ public class TUserController {
         System.out.println(list);
         return  list;
     }
+
+    @RequestMapping("/testTransactional")
+    public void testTransactional(){
+        userService.testTransactional();
+    }
+
+
+    @RequestMapping("/queryUserByUsername")
+    public Map queryUserByUsername(String userName){
+        TUser user = userService.queryUserByUsername(userName);
+        System.out.println(user);
+
+        Map r = new HashMap<String, Object>();
+        r.put("code", 0);
+        r.put("msg", "success");
+        return r;
+    }
 }
 

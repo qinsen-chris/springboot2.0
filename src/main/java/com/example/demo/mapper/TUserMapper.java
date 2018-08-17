@@ -21,4 +21,6 @@ import java.util.List;
 public interface TUserMapper extends BaseMapper<TUser> {
 
     List<UserBill> queryListUserBill(Pagination page, @Param("user") TUser user );
+
+    TUser queryUserByUsername(@Param("userName") String userName );
 }

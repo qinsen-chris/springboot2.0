@@ -6,6 +6,7 @@ import com.example.demo.domain.UserBill;
 import com.example.demo.entity.TUser;
 import com.baomidou.mybatisplus.service.IService;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -19,5 +20,10 @@ import java.util.List;
  */
 public interface ITUserService extends IService<TUser> {
 
+
     Page<UserBill> queryListUser(TUser user );
+
+    void testTransactional();
+
+    TUser queryUserByUsername(String username);
 }
