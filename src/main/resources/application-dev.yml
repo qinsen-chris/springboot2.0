@@ -39,6 +39,18 @@ spring:
 #    activemq:
 #      broker-url: tcp://localhost:61616?jms.prefetchPolicy.all=2&jms.redeliveryPolicy.maximumRedeliveries=1
 
+#  要切换为redis，则将@Primary移到redis的RedisCacheManager,并启用下面的参数
+#  redis:
+#    host: 58.213.91.96
+#    port: 29012
+#    password:
+#    lettuce:
+#      pool:
+#        max-active: 8
+#        max-wait: -1ms
+#        max-idle: 8
+#        min-idle: 1
+
 log:
   path: /alidata/logs/demo1
   level: INFO

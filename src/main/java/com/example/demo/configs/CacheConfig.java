@@ -13,6 +13,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 
 /**
@@ -21,12 +30,14 @@ import org.springframework.core.io.ClassPathResource;
  * @author zhanghao
  * @version $$ Revision:1.0-SNAPSHOT, $$ Date: 2018/6/6 14:34 $$
  */
-@Configuration
-@EnableCaching(proxyTargetClass = true)
+
+/*@Configuration
+@EnableCaching(proxyTargetClass = true)*/
 public class CacheConfig {
 
     /**************************************************** redis cache config ****************************************************************/
-/*    @Bean
+ /*   @Bean
+
     public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(connectionFactory);
         RedisCacheConfiguration defaultRedisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
@@ -48,7 +59,7 @@ public class CacheConfig {
 
     /**************************************************** ehcache cache config ****************************************************************/
     @Bean
-    @Primary
+    //@Primary
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean ehCacheManagerFactoryBean) {
         return new EhCacheCacheManager(ehCacheManagerFactoryBean.getObject());
     }
@@ -81,9 +92,5 @@ public class CacheConfig {
          */
         public static final String NEWS = CURR_SYS_CACHE_PREFIX + "news:";
 
-        /**
-         * 系统模块缓存前缀
-         */
-        public static final String SYS = CURR_SYS_CACHE_PREFIX + "sys:";
     }
 }

@@ -7,6 +7,7 @@ import com.example.demo.entity.Bill;
 import com.example.demo.entity.TUser;
 import com.example.demo.service.IBillService;
 import com.example.demo.service.ITUserService;
+import com.example.demo.service.RedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,9 +30,10 @@ import java.util.Map;
 public class TUserController {
     @Autowired
     private ITUserService userService;
-
     @Autowired
     private IBillService billService;
+    @Autowired
+    private RedisCacheService redisCacheService;
 
     /**
      * mybatis方式
@@ -94,17 +96,48 @@ public class TUserController {
         return  list;
     }
 
+    /**
+     * 测试事务
+     */
     @RequestMapping("/testTransactional")
     public void testTransactional(){
         userService.testTransactional();
     }
 
 
+    /**
+     * 测试 Encache 缓存
+     * @param userName
+     * @return
+     */
     @RequestMapping("/queryUserByUsername")
     public Map queryUserByUsername(String userName){
         TUser user = userService.queryUserByUsername(userName);
         System.out.println(user);
 
+        Map r = new HashMap<String, Object>();
+        r.put("code", 0);
+        r.put("msg", "success");
+        return r;
+    }
+
+    /**
+     * 测试 redis 缓存
+     * @param userName
+     * @return
+     */
+    @RequestMapping("/queryUserByUsername2")
+    public Map queryUserByUsername2(String userName){
+        TUser userCache = redisCacheService.getDemoUser(userName);
+        if(userCache != null){
+            Map r = new HashMap<String, Object>();
+            r.put("code", 0);
+            r.put("msg", "缓存成功！");
+            return r;
+        }
+        TUser user = userService.queryUserByUsername(userName);
+        System.out.println(user);
+        redisCacheService.setDemo1User(userName,user);
         Map r = new HashMap<String, Object>();
         r.put("code", 0);
         r.put("msg", "success");

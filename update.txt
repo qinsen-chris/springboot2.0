@@ -86,6 +86,15 @@ The dependencies of some of the beans in the application context form a cycle:
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
+		
+		源码解读：
+		初始阶段  SqlSessionFactory、2 Configuration、 3 sqlSession
+		代理阶段  mapper -- sqlSession
+		数据获取  executor 反射会bo对象
+		 
+		加载配置文件信息 、
+		Mapper接口无实现类: 通过动态代理MapperProxy (InvocationHandler)、加载配置信息，
+		通过sqlSession 内部通过 executor(通过jdbc)执行查询。
 
 
 # mybatis-plus配置
@@ -188,7 +197,23 @@ mybatis-plus:
 		
 		核心逻辑在CacheInterceptor这个类（及其父类CacheAspectSupport）
 7、redis
-
+	
+	@Bean
+    public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {
+        return new RedisCacheManager(redisTemplate);  //不兼容
+    }
+	
+	解决：
+	@Bean
+    public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(factory);
+        RedisCacheConfiguration defaultRedisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+        RedisCacheConfiguration redisCacheConfiguration = defaultRedisCacheConfiguration
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        return new RedisCacheManager(redisCacheWriter,redisCacheConfiguration);
+    }
+	
+	
 8、Swagger
 
 9、前端框架

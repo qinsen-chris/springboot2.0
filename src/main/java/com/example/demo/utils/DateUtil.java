@@ -22,6 +22,15 @@ import java.util.List;
 public class DateUtil {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DateUtil.class);
+
+	public static String format(Date date, String pattern) {
+		if(date != null){
+			SimpleDateFormat df = new SimpleDateFormat(pattern);
+			return df.format(date);
+		}
+		return null;
+	}
+
 	/**
 	 * 时间转换为yyyy-MM-dd HH:mm:ss格式的字符串
 	 * 

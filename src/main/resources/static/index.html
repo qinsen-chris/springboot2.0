@@ -61,7 +61,15 @@
         <div >
             <input type="text"  placeholder="" id="userName2"/>
         </div>
-        <button type="button" onclick="queryUserBillList2()">查找用户</button>
+        <button type="button" onclick="queryUserBillList2()">查找用户（encache）</button>
+    </div>
+
+    <br/>
+    <div >
+        <div >
+            <input type="text"  placeholder="" id="userName3"/>
+        </div>
+        <button type="button" onclick="queryUserBillList3()">查找用户（redis）</button>
     </div>
 
 </body>
@@ -235,5 +243,37 @@
         });
     }
 
+
+     function queryUserBillList3(){
+        var userName = $("#userName3").val();
+       if(userName ==""){
+            alert("名称不能为空!");
+            return false;
+        }
+         console.log(userName);
+
+        var formData = new FormData();
+        formData.append('userName', userName);
+
+        $.ajax({
+            url: 'http://localhost:9001/queryUserByUsername2',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                if(r.code === 0){
+                    alert(r.msg);
+                }else{
+                    alert(r.msg);
+                }
+            },
+            error: function(err) {
+                alert("网络错误");
+            }
+        });
+    }
 </script>
 </html>
