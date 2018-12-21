@@ -50,4 +50,53 @@ public class PdfCreatorTest {
         boolean success = PdfCreator.CreateByFreemarker(template, pars, pdf);
     }
 
+    @Test
+    public void createByFreemarker_entexamine() throws Exception {
+        String rootPath = "D:/projectTest/temp/entexamine/";
+        String template = rootPath+"ent_examine.ftl";
+        HashMap<String, Object> pars = new HashMap<String, Object>();
+
+        String fileName = "ent_examine.pdf";
+        String pdf = rootPath+fileName;
+        PdfCreator.CreateByFreemarker(template, pars, pdf);
+    }
+
+    @Test
+    public void createByFreemarker_contConfirm() throws Exception {
+        String rootPath = "D:/projectTest/temp/";
+        String template = rootPath+"contConfirm1.ftl";
+        HashMap<String, Object> pars = new HashMap<String, Object>();
+
+        String fileName = "contConfirm.pdf";
+        String pdf = rootPath+fileName;
+
+        List<Animals> animals  = new ArrayList<>();
+        Animals a1 = new Animals();
+        a1.setName("a1");
+        a1.setPrice("100");
+        Animals a2 = new Animals();
+        a2.setName("a2");
+        a2.setPrice("200");
+//        animals.add(a1);
+//        animals.add(a2);
+        pars.put("debtLists",animals);
+        pars.put("ticketLists",animals);
+        pars.put("contBean", BeanUtil.null2String(a1));
+        pars.put("baseContBean", BeanUtil.null2String(a1));
+        PdfCreator.CreateByFreemarker(template, pars, pdf);
+    }
+
+    @Test
+    public void tests(){
+        String path1 = PdfCreator.class.getResource("/templates/contConfirm1.ftl").getPath();
+        //getResource("/") 在编译环境没有问题，但是在jar包中就会返回Null
+        String path2 = this.getClass().getResource("/").getPath();
+
+        String ss = "D:/github-program/springboot2.0/target/classes/templates/contConfirm1.ftl";
+        ss = ss.substring(0,ss.lastIndexOf("/")+1);
+        System.out.println(ss);
+        System.out.println(path1);
+        System.out.println(path2);
+    }
+
 }
