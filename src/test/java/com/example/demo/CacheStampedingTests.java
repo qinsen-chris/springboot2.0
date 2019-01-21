@@ -56,10 +56,12 @@ public class CacheStampedingTests {
 
                     //http请求，实际上就是多线程调用这个方法
                     // 业务代码实现逻辑 ：先从缓存中获取，没有的话去数据库查找，然后重建缓存，如果缓存失效,则大并发会对数据库造成压力
-                    //不要让请求同时进入，做同步锁。不要使用synchronized,使用lock（lock()、unlock()）,在锁中在做一次判断，判断缓存中是否有数据。
+                    //1、不要让请求同时进入，做同步锁。不要使用synchronized,使用lock（lock()、unlock()）,在锁中在做一次判断，判断缓存中是否有数据。
+                    //2、每种车次一个锁，不要所有车次同一个锁 map.putIdAbsent("","")  ,redis中同样的功能 setnx name chris
+                    //3、主缓存拿不到数据，备份缓存策略
                     // ticketService.queryTicketStock(TICKET_SEQ);
-                    //每种车次一个锁，不要所有车次同一个锁
 
+                    //Thread.currentThread().sleep(1000);
                     System.out.println("开始执行业务代码！");
 
                 } catch (InterruptedException e) {

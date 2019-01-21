@@ -137,6 +137,13 @@
 			<version>9.1.5</version>
 		</dependency>
 
+		<!-- http post请求 JSONObject -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.32</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
