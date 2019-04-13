@@ -25,7 +25,7 @@ public class TUser extends BaseEntry implements Serializable {
     private String telPhone;
     private Integer age;
     private String remark;
-    @TableField(value =  "createDate" , fill = FieldFill.INSERT)
+    @TableField(value =  "create_date" , fill = FieldFill.INSERT)
     private Date createDate;
 
 
