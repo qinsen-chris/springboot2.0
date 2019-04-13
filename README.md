@@ -3,7 +3,19 @@ springboot2.0、Mybatis-Plus、encache......
 
 Typora
 
-1、Whitelabel Error Page
+1、热部署：
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<!--<scope>runtime</scope>-->
+		</dependency>
+		
+		idea默认是没有自动编译的,我们这里需要添加修改配置.打开设置
+		（1）File-Settings-Compiler-Build Project automatically
+		（2）ctrl + shift + alt + /,选择Registry,勾上 Compiler autoMake allow when app running
+
+2、Whitelabel Error Page
 
 	This application has no explicit mapping for /error, so you are seeing this as a fallback.
 	Thu Aug 09 11:16:51 CST 2018
@@ -12,7 +24,7 @@ Typora
 
  index.html  放在static资源文件夹下
 
- 2、html  ajax请求
+3、html  ajax请求
 
 		var formData = new FormData();
 	    formData.append('productName', productName);
@@ -40,7 +52,7 @@ Typora
 	        }
 	    });
 
-3、mybatis
+4、mybatis
 
 Caused by: java.lang.ClassNotFoundException: org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvider
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
@@ -76,7 +88,7 @@ The dependencies of some of the beans in the application context form a cycle:
 
 解决：@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 
-4、mybatis plus
+5、mybatis plus
 
 		<!-- mybatis-plus -->
 		<dependency>
@@ -151,13 +163,13 @@ mybatis-plus:
 	解决：like concat('%',#{user.userName},'%')
 
 
-5、事务控制
+6、事务控制
 	@Transactional
 	声明式事务底层原理
 	spring事务处理机制
 	事务的传播与监控
 
-6、cache
+7、cache
 一级缓存
 二级缓存
 		1、
@@ -201,7 +213,7 @@ mybatis-plus:
 		</dependency>
 		
 		核心逻辑在CacheInterceptor这个类（及其父类CacheAspectSupport）
-7、redis
+8、redis
 	
 	@Bean
 	public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {
@@ -218,7 +230,7 @@ mybatis-plus:
 	    return new RedisCacheManager(redisCacheWriter,redisCacheConfiguration);
 	}
 
-8、freemarker+ITextRenderer
+9、freemarker+ITextRenderer
 	itext:
 	对html标签严格，少一个结束标签就会报错；2、后端实现复杂，服务器需要安装字体；3、图片渲染比较复杂(暂时还没解决)
 
@@ -269,6 +281,6 @@ mybatis-plus:
 
 
 ​	
-9、Swagger
+10、Swagger
 
-10、前端框架
+11、前端框架

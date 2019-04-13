@@ -13,6 +13,11 @@ spring:
     profiles:
         active: dev
     # jackson时间格式化
+
+    #热部署，指定文件重新启动
+    devtools:
+        restart:
+            trigger-file: trigger.txt
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss
