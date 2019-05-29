@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Description: java类作用描述
+ * @Description: Server服务端
  * @Author: qinsen
  * @CreateDate: 2019/5/23 10:48
  * @Version: 1.0
