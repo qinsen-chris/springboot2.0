@@ -281,10 +281,11 @@ mybatis-plus:
 
 
 10、quartz定时器
-       <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.2.1</version>
+       
+        pom: <dependency>
+             <groupId>org.quartz-scheduler</groupId>
+             <artifactId>quartz</artifactId>
+             <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
