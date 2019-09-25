@@ -280,7 +280,20 @@ mybatis-plus:
 				}
 
 
-​	
-10、Swagger
+10、quartz定时器
+       <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+	
+	 使用：
+	https://www.cnblogs.com/teach/p/5675960.html
+11、Swagger
 
-11、前端框架
+12、前端框架
